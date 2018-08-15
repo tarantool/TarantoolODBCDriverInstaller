@@ -1,0 +1,69 @@
+version: '{build}'
+branches:
+  only:
+  - master
+clone_folder: c:\projects\cmake-init
+image:
+- Visual Studio 2017
+configuration:
+- Release
+#- Debug
+platform:
+- x86
+environment:
+  xarch: Win64
+matrix:
+  fast_finish: true
+
+# skip unsupported combinations
+init:
+- if "%PLATFORM%"=="x86" ( set arch=)
+- if "%PLATFORM%"=="x64" ( set arch= Win64)
+- echo %arch%
+- echo %PLATFORM%
+- echo %APPVEYOR_BUILD_WORKER_IMAGE%
+- if "%APPVEYOR_BUILD_WORKER_IMAGE%"=="Visual Studio 2017" ( set generator="Visual Studio 15 2017%arch%" )
+- if "%APPVEYOR_BUILD_WORKER_IMAGE%"=="Visual Studio 2015" ( set generator="Visual Studio 14 2015%arch%" )
+- if "%APPVEYOR_BUILD_WORKER_IMAGE%"=="Visual Studio 2013" ( set generator="Visual Studio 12 2013%arch%" )
+- echo %generator%
+
+install:
+- git submodule update --init --recursive
+
+before_build:
+- cmd: |-
+    mkdir build
+    cd build
+    cmake --version
+    cmake .. -G %generator%
+    cmake --config Release .
+
+build:
+# project: template.sln
+# verbosity: minimal
+  project: c:\projects\cmake-init\build\ALL_BUILD.vcxproj
+  parallel: false
+only_commits:
+  files:
+    - CMakeLists.txt
+    - appveyor.yml
+    - source/
+    - cmake/
+
+artifacts:
+  - path: '**\*.exe'
+    name: release
+
+
+deploy:
+  release: tnt-odbc-win-$(platform)
+  description: 'Tarantool odbc win dist'
+  provider: GitHub
+  auth_token:
+    secure: y0ASjHrs4wZFAURc4N5oVCzdNtw8XPzd2fzGB+py0a5u8o3HenR2hu09zMjuv0H5
+  artifact: release             # upload all dlls packages to release assets
+  draft: false
+  prerelease: false
+  on:
+    branch: master                 # release from master branch only
+    appveyor_repo_tag: false
