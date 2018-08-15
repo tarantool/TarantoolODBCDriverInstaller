@@ -28,7 +28,7 @@ init:
 - echo %generator%
 
 install:
-- git submodule update --init --recursive
+
 
 before_build:
 - cmd: |-
@@ -39,8 +39,6 @@ before_build:
     cmake --config Release .
 
 build:
-# project: template.sln
-# verbosity: minimal
   project: c:\projects\cmake-init\build\ALL_BUILD.vcxproj
   parallel: false
 only_commits:
@@ -51,7 +49,7 @@ only_commits:
     - cmake/
 
 artifacts:
-  - path: '**\*.exe'
+  - path: '**\*.msi'
     name: release
 
 
