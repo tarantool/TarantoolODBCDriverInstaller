@@ -31,7 +31,9 @@ set(Manufacturer "Mail.ru")
 set(SearchMsiResoursesPath "${CMAKE_CURRENT_SOURCE_DIR}/TarantoolODBCDriverInstaller/")
 set(SearchBootstrapperResoursesPath "${CMAKE_CURRENT_SOURCE_DIR}/TarantoolODBCDriverBootstrapper/")
 
-set(LanguageBuild "EN")
+if(NOT LanguageBuild)
+       set(LanguageBuild "EN")
+endif()
 
 #--------- Set msi variables --------------------------
 set(Driver64bitSourcePath "${CMAKE_CURRENT_SOURCE_DIR}/DriverSource")

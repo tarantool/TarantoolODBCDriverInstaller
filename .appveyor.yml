@@ -11,7 +11,10 @@ configuration:
 platform:
 - x86
 environment:
-  xarch: Win64
+  matrix:
+  - lang: RU
+  - lang: EN
+
 matrix:
   fast_finish: true
 
@@ -21,6 +24,7 @@ init:
 - if "%PLATFORM%"=="x64" ( set arch= Win64)
 - echo %arch%
 - echo %PLATFORM%
+- echo %lang%
 - echo %APPVEYOR_BUILD_WORKER_IMAGE%
 - if "%APPVEYOR_BUILD_WORKER_IMAGE%"=="Visual Studio 2017" ( set generator="Visual Studio 15 2017%arch%" )
 - if "%APPVEYOR_BUILD_WORKER_IMAGE%"=="Visual Studio 2015" ( set generator="Visual Studio 14 2015%arch%" )
@@ -28,7 +32,8 @@ init:
 - echo %generator%
 
 install:
-
+- curl -o DriverSource/32.tnt_odbc.dll https://github.com/tarantool/tarantool-c/releases/download/tnt_odbc-win-x86/tnt_odbc.dl
+- curl -o DriverSource/64.tnt_odbc.dll https://github.com/tarantool/tarantool-c/releases/download/tnt_odbc-win-x64/tnt_odbc.dl
 
 before_build:
 - cmd: |-
@@ -36,7 +41,7 @@ before_build:
     cd build
     cmake --version
     cmake .. -G %generator%
-    cmake --config Release .
+    cmake --config Release -DLanguageBuild=%lang% .
 
 build:
   project: c:\projects\cmake-init\build\ALL_BUILD.vcxproj
