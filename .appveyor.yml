@@ -52,6 +52,9 @@ artifacts:
   - path: '**\*.msi'
     name: release
 
+- path: '**\*Tarantool*.exe'
+    name: boot
+
 
 deploy:
   release: tnt-odbc-win-$(platform)
