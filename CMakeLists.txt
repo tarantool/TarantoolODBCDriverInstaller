@@ -68,7 +68,7 @@ set(64bitMsiPath "${MsiOutputPathFor64bit}/${MsiNameFor64bit}")
 set(32bitMsiPath "${MsiOutputPathFor32bit}/${MsiNameFor32bit}")
 
 set(BootstrapperApplicationPath "${CMAKE_CURRENT_SOURCE_DIR}/TarantoolODBCDriverBootstrapper/bin")
-set(BootstrapperApplicationName "TarantoolSetup_Ru.exe")
+set(BootstrapperApplicationName "TarantoolSetup_${LanguageBuild}.exe")
 set(TempFilePathForBootstrapper "${CMAKE_CURRENT_SOURCE_DIR}/TarantoolODBCDriverBootstrapper/obj/")
 
 add_subdirectory(TarantoolODBCDriverInstaller)
