@@ -32,8 +32,8 @@ init:
 - echo %generator%
 
 install:
-- curl -o DriverSource/32.tnt_odbc.dll https://github.com/tarantool/tarantool-c/releases/download/tnt_odbc-win-x86/tnt_odbc.dl
-- curl -o DriverSource/64.tnt_odbc.dll https://github.com/tarantool/tarantool-c/releases/download/tnt_odbc-win-x64/tnt_odbc.dl
+- curl -L -o DriverSource/32.tnt_odbc.dll https://github.com/tarantool/tarantool-c/releases/download/tnt_odbc-win-x86/tnt_odbc.dl
+- curl -L -o DriverSource/64.tnt_odbc.dll https://github.com/tarantool/tarantool-c/releases/download/tnt_odbc-win-x64/tnt_odbc.dl
 
 before_build:
 - cmd: |-
