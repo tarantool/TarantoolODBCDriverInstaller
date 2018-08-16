@@ -55,3 +55,4 @@
 		TempFilePathForBootstrapper = "${CMAKE_CURRENT_SOURCE_DIR}/TarantoolODBCDriverBootstrapper/obj/" - путь для временных файлов сборки выходного файла.
 		BootstrapperApplicationPath = "${CMAKE_CURRENT_SOURCE_DIR}/TarantoolODBCDriverBootstrapper/bin" - путь до папки выходного файла.
 		BootstrapperApplicationName = "TarantoolSetup.exe" - имя выходного файла.
+.
